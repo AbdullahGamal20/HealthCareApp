@@ -1,21 +1,13 @@
-# Use official Node.js LTS base image
-FROM node:18-alpine
+# Example Dockerfile
+FROM node:18
 
-# Set working directory inside container
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy the rest of the source code
 COPY . .
 
-# Build Next.js app
-RUN npm run build
+ARG NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 
-# Expose port
-EXPOSE 3000
+RUN npm install
 
-# Start app in production mode
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
